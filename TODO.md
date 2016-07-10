@@ -1,10 +1,11 @@
 - [x] setup ctip package structure
 - [x] create initial README file
-- [ ] setup test suite for pytest
+- [x] setup test suite for pytest
 - [ ] write frange test
 - [ ] port frange to new package
 - [ ] write test for genfile parsing
 - [ ] create genfile parser
+- [ ] setup project to use configparser
 - [ ] write tests for database management
 - [ ] port ctip-old database code into new package
 - [ ] add Experiment and Environment objects
