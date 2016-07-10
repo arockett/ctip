@@ -1,5 +1,4 @@
-# CTIP
-Configuration Testing In Parallel
+# CTIP (Configuration Testing In Parallel)
 
 CTIP is a general, extensible tool for running batches of configurable jobs in
 parallel on a variety of environments from your local machine to a remote server.
@@ -24,10 +23,10 @@ $ pip install ctip
 Configure ctip installation by setting paths to directories containing all user
 defined ``Experiments`` and ``Environments``:
 
-''' bash
+```
 $ ctip set experiment-dir ~/research/ctip-exp
 $ ctip set environment-dir ~/research/ctip-env
-'''
+```
 
 ## Usage
 
@@ -36,23 +35,24 @@ visit a website I will make with all the documentation.
 
 For a concise summary of all available commands, run:
 
-```bash
+```
 $ ctip help
 ```
 
 Run configurations for the ``Doodle`` experiment in the ``Local`` environment as
 specified in a genfile named ``doodle_configs.gen``:
 
-``` bash
+```
 $ ctip run gen doodle_configs.gen --experiment Doodle --environment Local
 ```
 
 **Note:** During development, avoid constant re-installation by using
-``python ctip-runner.py ...`` instead of the ``ctip`` command.
+``python ctip-runner.py`` instead of the ``ctip`` command.
 
 ## Change log
 
-Please see [CHANGELOG](CHANGELOG.md) for information about what has changed recently.
+Please see the [CHANGELOG](CHANGELOG.md) for information about what has changed
+recently or the [TODO](TODO.md) list to see what's comming.
 
 ## Testing
 
@@ -64,7 +64,7 @@ $ py.test
 
 ## Security
 
-If you discover any security related issues, please email [me](aminor65ii@gmail.com)
+If you discover any security related issues, please email me at aminor65ii@gmail.com
 instead of using the issue tracker.
 
 With that being said, any communication ctip does with the outside world is through
@@ -81,4 +81,4 @@ Thanks to the Hintze Lab at Michigan State University for being a willing guinea
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The MIT License (MIT). Please see the [LICENSE](LICENSE) file for more information.

@@ -1,0 +1,45 @@
+ctip <command> <args>
+
+COMMANDS:
+
+    run:    ctip run table <config_table> ["<sql_where_clause>"] [OPTIONS]
+            ctip run file <config_file> ["<sql_where_clause>"] [OPTIONS]
+            ctip run gen <gen_file> ["<sql_where_clause>"] [OPTIONS]
+
+    tables: ctip tables
+
+    list:   ctip list <table_name> ["<sql_where_clause>"]
+
+    save:   ctip save [-o <out_file>] <table_name>
+
+    check:  ctip check [<session_id>]
+
+    clean:  ctip clean [<session_id>]
+	
+	set:	ctip set experiment-dir <dir>
+			ctip set environment-dir <dir>
+			
+	env:	ctip env <key>=<val> ...
+
+    update: ctip update status <job_id> <status>
+            ctip update id <job_id> <new_id>
+
+    log:    ctip log start <job_id>
+            ctip log pause <job_id>
+            ctip log resume <job_id>
+            ctip log end <job_id>
+
+OPTIONS:
+
+	-n, --name:
+        Provide a name for this test session. By default the session name
+        is a date-time string.
+
+    -o, --outdir:
+        Specify the root directory for the ctip run. By default a folder
+        named after the session's config table will be created in your
+        current directory containing a directory with the session name
+        in which each configuration will get it's own folder. If you
+        set CREATE_DIR_STRUCTURE to 'False' in the ctip_constants file
+        then the configuration folders will just be created in your
+        current directory.
