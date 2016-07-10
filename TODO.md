@@ -1,8 +1,8 @@
 - [x] setup ctip package structure
 - [x] create initial README file
 - [x] setup test suite for pytest
-- [ ] write frange test
-- [ ] port frange to new package
+- [x] write frange test
+- [x] port frange to new package
 - [ ] write test for genfile parsing
 - [ ] create genfile parser
 - [ ] setup project to use configparser
