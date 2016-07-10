@@ -32,6 +32,7 @@ def lists_fequal(A, B):
 
 
 class TestFrange(object):
+    """Tests for the frange function."""
     
     smol = [0, 1e-9, 2e-9, 3e-9, 4e-9, 5e-9, 6e-9, 7e-9, 8e-9, 9e-9, 1e-8]
     
