@@ -1,0 +1,20 @@
+- [x] setup ctip package structure
+- [x] create initial README file
+- [ ] setup test suite for pytest
+- [ ] write frange test
+- [ ] port frange to new package
+- [ ] write test for genfile parsing
+- [ ] create genfile parser
+- [ ] write tests for database management
+- [ ] port ctip-old database code into new package
+- [ ] add Experiment and Environment objects
+- [ ] write test for example Experiment
+- [ ] write test for example Environment
+- [ ] create example Experiment
+- [ ] create example Environment
+- [ ] write test for specifying Experiment and setting a default
+- [ ] write test for specifying Environment and setting a default
+- [ ] add ability to specify Experiment
+- [ ] add ability to specify Environment
+- [ ] write test for automatic discovery
+- [ ] add automatic discovery of experiments and environments in configurable dirs

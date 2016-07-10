@@ -1,0 +1,5 @@
+name: ctip-env
+dependencies:
+- python=3
+- pytest
+- pip
