@@ -15,11 +15,11 @@ COMMANDS:
     check:  ctip check [<session_id>]
 
     clean:  ctip clean [<session_id>]
-	
-	set:	ctip set experiment-dir <dir>
-			ctip set environment-dir <dir>
-			
-	env:	ctip env <key>=<val> ...
+
+    set:    ctip set experiment-dir <dir>
+            ctip set environment-dir <dir>
+
+    env:    ctip env <key>=<val> ...
 
     update: ctip update status <job_id> <status>
             ctip update id <job_id> <new_id>
@@ -31,7 +31,7 @@ COMMANDS:
 
 OPTIONS:
 
-	-n, --name:
+    -n, --name:
         Provide a name for this test session. By default the session name
         is a date-time string.
 

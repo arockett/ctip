@@ -15,14 +15,12 @@ locally.
 See the [INSTALL](INSTALL.md) file for more detailed information.
 
 Via pip:
-
 ``` bash
 $ pip install ctip
 ```
 
 Configure ctip installation by setting paths to directories containing all user
 defined ``Experiments`` and ``Environments``:
-
 ```
 $ ctip set experiment-dir ~/research/ctip-exp
 $ ctip set environment-dir ~/research/ctip-env
@@ -34,14 +32,12 @@ For complete documentation of ctip, browse the docs folder or go to the future a
 visit a website I will make with all the documentation.
 
 For a concise summary of all available commands, run:
-
 ```
 $ ctip help
 ```
 
 Run configurations for the ``Doodle`` experiment in the ``Local`` environment as
 specified in a genfile named ``doodle_configs.gen``:
-
 ```
 $ ctip run gen doodle_configs.gen --experiment Doodle --environment Local
 ```
@@ -57,7 +53,6 @@ recently or the [TODO](TODO.md) list to see what's comming.
 ## Testing
 
 From the root ctip directory run:
-
 ``` bash
 $ py.test
 ```

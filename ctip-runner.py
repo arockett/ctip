@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Convenience wrapper for running ctip directly from source tree.
+Convenience wrapper for running ctip directly from the root project directory.
 
 Created on Sat Jul  9 16:42:47 2016
 
