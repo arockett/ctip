@@ -3,19 +3,26 @@
 - [x] setup test suite for pytest
 - [x] write frange test
 - [x] port frange to new package
-- [ ] write test for genfile parsing
+- [x] write tests for gen schema api
+- [ ] write tests for gen schema configuration generation
+- [ ] write tests for genfile parsing and writing
+- [x] implement gen schema api
+- [ ] implement configuration generation
 - [ ] create genfile parser
+- [ ] create genfile writer
 - [ ] setup project to use configparser
 - [ ] write tests for database management
-- [ ] port ctip-old database code into new package
+- [ ] port database code from ctip-old to the new package
 - [ ] add Experiment and Environment objects
 - [ ] write test for example Experiment
 - [ ] write test for example Environment
 - [ ] create example Experiment
 - [ ] create example Environment
+- [ ] write test for automatic discovery
+- [ ] add automatic discovery of experiments and environments in configurable dirs
+- [ ] write tests for CLI
+- [ ] port CLI from ctip-old to the new package
 - [ ] write test for specifying Experiment and setting a default
 - [ ] write test for specifying Environment and setting a default
 - [ ] add ability to specify Experiment
 - [ ] add ability to specify Environment
-- [ ] write test for automatic discovery
-- [ ] add automatic discovery of experiments and environments in configurable dirs
