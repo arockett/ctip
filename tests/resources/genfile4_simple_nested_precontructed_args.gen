@@ -1,0 +1,6 @@
+bows
+type = long, recurve
+type = long
+    length = 66, 72
+type = recurve
+    length = 42, 46

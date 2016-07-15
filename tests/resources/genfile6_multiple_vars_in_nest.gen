@@ -1,0 +1,7 @@
+bows
+type = long
+    length = 42, 46
+    wood = osage orange, yew
+type = recurve
+    length = 66, 72
+    wood = hickory

@@ -1,0 +1,7 @@
+[
+    {"decoder":"Hypercube", "gates":12, "complexity":2, "length":80},
+    {"decoder":"Hypercube", "gates":12, "complexity":3, "length":110},
+    {"decoder":"Hypercube", "gates":15, "complexity":2, "length":116},
+    {"decoder":"Hypercube", "gates":15, "complexity":3, "length":140},
+    {"decoder":"Hypercube", "gates":15, "complexity":3, "length":158}
+]

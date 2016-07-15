@@ -1,0 +1,18 @@
+[
+    {"type":"long", "length":66, "pokemon_type":"water", "name":"Squirtle"},
+    {"type":"long", "length":66, "pokemon_type":"water", "name":"Lapras"},
+    {"type":"long", "length":66, "pokemon_type":"fire", "name":"Charmander"},
+    {"type":"long", "length":66, "pokemon_type":"fire", "name":"Vulpix"},
+    {"type":"long", "length":70, "pokemon_type":"water", "name":"Squirtle"},
+    {"type":"long", "length":70, "pokemon_type":"water", "name":"Lapras"},
+    {"type":"long", "length":70, "pokemon_type":"fire", "name":"Charmander"},
+    {"type":"long", "length":70, "pokemon_type":"fire", "name":"Vulpix"},
+    {"type":"recurve", "length":44, "pokemon_type":"water", "name":"Squirtle"},
+    {"type":"recurve", "length":44, "pokemon_type":"water", "name":"Lapras"},
+    {"type":"recurve", "length":44, "pokemon_type":"fire", "name":"Charmander"},
+    {"type":"recurve", "length":44, "pokemon_type":"fire", "name":"Vulpix"},
+    {"type":"recurve", "length":45, "pokemon_type":"water", "name":"Squirtle"},
+    {"type":"recurve", "length":45, "pokemon_type":"water", "name":"Lapras"},
+    {"type":"recurve", "length":45, "pokemon_type":"fire", "name":"Charmander"},
+    {"type":"recurve", "length":45, "pokemon_type":"fire", "name":"Vulpix"}
+]

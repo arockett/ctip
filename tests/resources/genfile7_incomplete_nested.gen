@@ -1,0 +1,4 @@
+bows
+type = long, recurve
+type = long
+    primitive = yes, no

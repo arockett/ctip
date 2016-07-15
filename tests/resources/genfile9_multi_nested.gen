@@ -1,0 +1,12 @@
+p3
+decoder = Hypercube
+    gates = 12
+        complexity = 2
+            length = 80
+        complexity = 3
+            length = 110
+    gates = 15
+        complexity = 2
+            length = 116
+        complexity = 3
+            length = 140, 158

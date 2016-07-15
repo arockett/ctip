@@ -1,0 +1,8 @@
+[
+    {"type":"long", "length":42, "wood":"osage orange"},
+    {"type":"long", "length":42, "wood":"yew"},
+    {"type":"long", "length":46, "wood":"osage orange"},
+    {"type":"long", "length":46, "wood":"yew"},
+    {"type":"recurve", "length":66, "wood":"hickory"},
+    {"type":"recurve", "length":72, "wood":"hickory"}
+]

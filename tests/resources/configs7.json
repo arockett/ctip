@@ -1,0 +1,5 @@
+[
+    {"type":"long", "primitive":"yes"},
+    {"type":"long", "primitive":"no"},
+    {"type":"recurve"}
+]

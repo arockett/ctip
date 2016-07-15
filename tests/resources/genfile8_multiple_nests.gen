@@ -1,0 +1,11 @@
+bows_and_pokemon
+type = long, recurve
+type = long
+    length = 66, 70
+type = recurve
+    length = 44, 45
+pokemon_type = water, fire
+pokemon_type = water
+    name = Squirtle, Lapras
+pokemon_type = fire
+    name = Charmander, Vulpix
