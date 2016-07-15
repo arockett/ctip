@@ -4,7 +4,7 @@
 - [x] write frange test
 - [x] port frange to new package
 - [x] write tests for gen schema api
-- [ ] write tests for gen schema configuration generation
+- [x] write tests for gen schema configuration generation
 - [ ] write tests for genfile parsing and writing
 - [x] implement gen schema api
 - [ ] implement configuration generation
