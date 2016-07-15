@@ -67,7 +67,7 @@ class GenSchema(object):
         if not valid_type(variable) or not all([valid_type(v) for v in values]):
             raise TypeError("Gen schema variables and values must strings, ints, or floats")
             
-        values = [(v,[]) for v in values]
+        values = [(v,None) for v in values]
         if variable not in self.schema:
             self.schema[variable] = values
         else:
@@ -96,7 +96,10 @@ class GenSchema(object):
             raise ValueError("{} is not a valid argument for {}".format(value,variable))
             
         for i in indices:
-            args[i][1].extend(dependencies)
+            if args[i][1] is None:
+                args[i] = (args[i][0], GenSchema())
+            for dep in dependencies:
+                args[i][1].schema.update(dep.schema)
     
     def __iter__(self):
         return self
@@ -106,13 +109,12 @@ class GenSchema(object):
     
     def __str__(self):
         pass
-    
-    @classmethod
-    def build_from_file(filename):
-        """Factory method for creating a GenSchema from the contents of a file."""
+        
+    def write_to_file(self, filename):
+        """Create a new genfile from a GenSchema."""
         pass
     
     @classmethod
-    def write_to_file(schema, filename):
-        """Create a new genfile from a GenSchema."""
+    def build_from_file(cls, filename):
+        """Factory method for creating a GenSchema from the contents of a file."""
         pass
