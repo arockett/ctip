@@ -48,7 +48,8 @@ class GenSchema(object):
     gen schema which is linked to 'val2.2'.
     """
     
-    def __init__(self):
+    def __init__(self, name = None):
+        self.name = name
         self.schema = {}
     
     def add_values(self, variable, *values):

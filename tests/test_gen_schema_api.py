@@ -17,6 +17,11 @@ def test_construction():
     """Test GenSchema constructor."""
     
     gen = GenSchema()
+    assert gen.name is None
+    assert gen.schema == {}
+    
+    gen = GenSchema("schema_name")
+    assert gen.name == "schema_name"
     assert gen.schema == {}
     
 def test_add_invalid_values():
