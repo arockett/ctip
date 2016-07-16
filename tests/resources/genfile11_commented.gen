@@ -1,0 +1,20 @@
+# This is a full line comment at the beginning of the genfile
+
+# This next line contains the schema name
+p3
+
+# Define the possible decoders
+decoder = Hypercube, Unstructured, FixedLogic, FixedInputs
+
+# Define gate information and therefore bitstring length
+decoder = Hypercube
+    # This is a comment before a nest
+    complexity = 2      # This is a comment at the end of a line
+        gates = 12, 15  # I'm gonna add a blank line
+
+    complexity = 3
+        gates = 8, 11
+    # This is a comment at the end of a nest
+
+decoder = Unstructured  # Another comment at the end of a line
+    complexity = 2, 3

@@ -1,0 +1,10 @@
+[
+    {"decoder":"Hypercube", "complexity":2, "gates":12},
+    {"decoder":"Hypercube", "complexity":2, "gates":15},
+    {"decoder":"Hypercube", "complexity":3, "gates":8},
+    {"decoder":"Hypercube", "complexity":3, "gates":11},
+    {"decoder":"Unstructured", "complexity":2},
+    {"decoder":"Unstructured", "complexity":3},
+    {"decoder":"FixedLogic"},
+    {"decoder":"FixedInputs"}
+]
