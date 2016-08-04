@@ -8,8 +8,7 @@
 - [ ] write tests for genfile parsing and writing
 - [x] implement gen schema api
 - [ ] implement configuration generation
-- [ ] create genfile parser
-- [ ] create genfile writer
+- [ ] use yaml for genfile format/parsing
 - [ ] setup project to use configparser
 - [ ] write tests for database management
 - [ ] port database code from ctip-old to the new package
