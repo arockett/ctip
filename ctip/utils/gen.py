@@ -103,7 +103,11 @@ class GenSchema(object):
                 args[i][1].schema.update(dep.schema)
     
     def configs(self):
-        """Generate configurations represented by the schema."""        
+        """Generate configurations represented by the schema."""
+        
+        # Make sure there's a schema with which to generate configs
+        if not self.schema:
+            raise StopIteration
         
         # List of the variable names to maintain an order
         variables = list(self.schema.keys())
@@ -115,7 +119,7 @@ class GenSchema(object):
         # List holding pieces of the curent config associated with each variable.
         # Config pieces are dictionaries of variables and their values. The piece
         # associated with a varialbe at this level will have more than just that
-        # variable if there are sub-variables for its current value.
+        # variable only if there are sub-variables associated with its current value.
         config_pieces = [{}] * N
             
         def increment(variable, idx):
@@ -172,26 +176,24 @@ class GenSchema(object):
             
             return cycled
         
-        # Fill config_pieces with initial values for the variables
+        # Fill config_pieces with initial pieces for each variable
         for i, var in enumerate(variables):
             increment(var, i)
         
-        while True:
+        # If we've rolled over on the last element, we're done generating configs
+        cycled_last_variable = False
+        while not cycled_last_variable:
             # Create and yield the current config made from the config pieces
             yield {k:v for d in config_pieces for k,v in d.items()}
             
             # Gather new pieces of the config based on incrementing the cursors
-            cycled_last_variable = False
             for i, var in enumerate(variables):
                 cycled_last_variable = increment(var, i)
                 if not cycled_last_variable:
                     break
-            
-            # If we've rolled over on the last element, we're done generating configs
-            if cycled_last_variable:
-                break
     
     def __str__(self):
+        """Return a string representation of this schema."""
         pass
         
     def write_to_file(self, filename):
