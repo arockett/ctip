@@ -5,9 +5,9 @@
 - [x] port frange to new package
 - [x] write tests for gen schema api
 - [x] write tests for gen schema configuration generation
-- [ ] write tests for genfile parsing and writing
 - [x] implement gen schema api
 - [ ] implement configuration generation
+- [ ] write tests for genfile parsing and writing
 - [ ] use yaml for genfile format/parsing
 - [ ] setup project to use configparser
 - [ ] write tests for database management

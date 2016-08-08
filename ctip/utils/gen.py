@@ -32,7 +32,7 @@ class GenSchema(object):
         {
             'variable1': ['val1.1', 'val1.2'],
             'variable2': [
-                'val2.1',
+                ['val2.1', null],
                 [
                     'val2.2',
                     {
@@ -40,7 +40,7 @@ class GenSchema(object):
                         'dependent2': ['dval2.1']
                     }
                 ],
-                'val2.3'
+                ['val2.3', null]
             ]
         }
         
@@ -102,11 +102,94 @@ class GenSchema(object):
             for dep in dependencies:
                 args[i][1].schema.update(dep.schema)
     
-    def __iter__(self):
-        return self
+    def configs(self):
+        """Generate configurations represented by the schema."""        
         
-    def __next__(self):
-        pass
+        # List of the variable names to maintain an order
+        variables = list(self.schema.keys())
+        N = len(variables)
+        # Indices tracking which value is next for each variable
+        cursors = [-1] * N
+        # References to any generator used to get a value's sub-variables
+        gens = [None] * N
+        # List holding pieces of the curent config associated with each variable.
+        # Config pieces are dictionaries of variables and their values. The piece
+        # associated with a varialbe at this level will have more than just that
+        # variable if there are sub-variables for its current value.
+        config_pieces = [{}] * N
+            
+        def increment(variable, idx):
+            """
+            Update the config piece associated with this variable.
+            
+            Args:
+                variable: Name of the variable to increment.
+                idx: Index of the variable in the order.
+            """
+            # Store whether or not the values for this variable rolled-over
+            cycled = False
+            # The new piece of the config associated with this variable
+            piece = {}
+            
+            # If there's a generator for this variable, the current value we're
+            # on has sub-variables. This means we should get the next round of
+            # sub-variables and only increment the cursor if there are no more
+            # sub-variables to be generated.
+            if gens[idx]:
+                val = self.schema[variable][cursors[idx]][0]
+                try:
+                    piece = next(gens[idx])
+                except StopIteration:
+                    # No more sub-variables to generate, un-store generator
+                    # so we fall in to the cursor incrementing if statement
+                    gens[idx] = None
+                    
+            # If there is no generator, either there never were sub-variables or
+            # the sub-variables ran out. Either way, we need to increment the
+            # cursor and move on to the next value. 
+            if not gens[idx]:
+                # Increment the cursor tracking which value we're on for this
+                # variable. Detect if we've cycled so we can return that flag.
+                pos = cursors[idx] + 1
+                if pos == len(self.schema[variable]):
+                    cycled = True
+                    pos = 0
+                cursors[idx] = pos
+                # Get the new value and any sub-value generator associated with it
+                val, gen = self.schema[variable][pos]
+                # If there are sub-variables, store their generator and get the
+                # first set of sub-variables.
+                if gen:
+                    gens[idx] = gen.configs()
+                    piece = next(gens[idx])
+
+            # At this point, val will have the correct value, regardless of whether
+            # it was incremented or stayed the same because of sub-variables or
+            # cycled. piece will either have sub-variables or be empty.
+            piece[variable] = val
+            # Swap out the old piece associated with this variable with the new piece
+            config_pieces[idx] = piece
+            
+            return cycled
+        
+        # Fill config_pieces with initial values for the variables
+        for i, var in enumerate(variables):
+            increment(var, i)
+        
+        while True:
+            # Create and yield the current config made from the config pieces
+            yield {k:v for d in config_pieces for k,v in d.items()}
+            
+            # Gather new pieces of the config based on incrementing the cursors
+            cycled_last_variable = False
+            for i, var in enumerate(variables):
+                cycled_last_variable = increment(var, i)
+                if not cycled_last_variable:
+                    break
+            
+            # If we've rolled over on the last element, we're done generating configs
+            if cycled_last_variable:
+                break
     
     def __str__(self):
         pass
