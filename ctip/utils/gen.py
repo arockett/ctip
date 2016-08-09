@@ -6,6 +6,7 @@ Created on Sun Jul 10 14:48:26 2016
 
 @author: Aaron Beckett
 """
+import yaml
 
 
 class GenSchema(object):
@@ -30,7 +31,10 @@ class GenSchema(object):
     summarized by the following json object:
     
         {
-            'variable1': ['val1.1', 'val1.2'],
+            'variable1': [
+                ['val1.1', null],
+                ['val1.2', null]
+            ],
             'variable2': [
                 ['val2.1', null],
                 [
@@ -66,7 +70,7 @@ class GenSchema(object):
             raise TypeError("Must provide at least one value to add_values()")
             
         if not valid_type(variable) or not all([valid_type(v) for v in values]):
-            raise TypeError("Gen schema variables and values must strings, ints, or floats")
+            raise TypeError("Gen schema variables and values must be strings, ints, or floats")
             
         values = [(v,None) for v in values]
         if variable not in self.schema:
@@ -198,9 +202,11 @@ class GenSchema(object):
         
     def write_to_file(self, filename):
         """Create a new genfile from a GenSchema."""
-        pass
+        with open(filename, 'w') as f:
+            yaml.dump(self, f)
     
     @classmethod
     def build_from_file(cls, filename):
         """Factory method for creating a GenSchema from the contents of a file."""
-        pass
+        with open(filename, 'r') as f:
+            return yaml.load(f)
