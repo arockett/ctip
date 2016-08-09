@@ -19,39 +19,29 @@ def compare_configs(configs, schema):
     
     # Define error messages
     incorrect_length = "Incorrect number of configs generated: {} != {}"
-    too_few_keys = "Generated config missing variables."
-    too_many_keys = "Generated config has too many variables."
-    incorrect_value = "Incorrect variable value: {} != {}"
+    incorrect_values = "Incorrect config values"
+    
+    generated = schema.configs()
     
     i = 0
-    for config in configs:
-        # Get the next generated config
-        try:
-            generated = next(schema)
-            i += 1
-        except StopIteration:
-            # There are no more generated configs but there should be
-            pytest.fail(incorrect_length.format(i, len(configs)))
-            
-        # If this config and generated config don't have the
-        # same set of keys they can't be equal
-        if set(generated) < set(config):
-            pytest.fail(too_few_keys)
-        elif set(generated) > set(config):
-            pytest.fail(too_many_keys)
-            
-        # We know each config has the same keys, now check their values
-        for key,val in config.items():
-            if val != generated[key]:
-                pytest.fail(incorrect_value.format(generated[key], val))
-               
-    # We've made it through all the configs that should be generated.
-    # Make sure there are no more generated configs
     try:
-        next(schema)
-        pytest.fail(incorrect_length.format("len", len(configs)))
+        while True:
+            config = next(generated)
+            i += 1
+            
+            if not configs:
+                pytest.fail(incorrect_length.format(i, i-1))
+            
+            for i in range(len(configs)):
+                if configs[i] == config:
+                    del configs[i]
+                    break
+            else:
+                pytest.fail(incorrect_values)
+                
     except StopIteration:
-        pass
+        if configs:
+            pytest.fail(incorrect_length.format(i, i + len(configs)))
     
 
 def test_single_var_single_arg():
