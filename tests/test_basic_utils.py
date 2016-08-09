@@ -8,7 +8,23 @@ Created on Sun Jul 10 01:41:17 2016
 """
 
 import pytest
+import sys
 import math
+
+def my_isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    """
+    Test if a and b are close enough to consider equal.
+    
+    This function is essentially the same as the math.isclose function which
+    was added in Python 3.5 but is created here to increase compatibility across
+    all Python 3 versions.
+    """
+    return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+if sys.version_info < (3, 5):
+    isclose = math.isclose
+else:
+    isclose = my_isclose
 
 from ctip.utils import frange
     
@@ -28,7 +44,7 @@ def lists_fequal(A, B):
     if len(A) != len(B):
         return False
         
-    return all([math.isclose(i,j) for i,j in zip(A,B)])
+    return all([isclose(i,j) for i,j in zip(A,B)])
 
 
 class TestFrange(object):
