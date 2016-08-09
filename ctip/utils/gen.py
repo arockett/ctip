@@ -8,6 +8,8 @@ Created on Sun Jul 10 14:48:26 2016
 """
 import yaml
 
+TAB = ' ' * 4
+
 
 class GenSchema(object):
     """Object representation of a gen schema.
@@ -196,14 +198,41 @@ class GenSchema(object):
                 if not cycled_last_variable:
                     break
     
-    def __str__(self):
+    def __str__(self, indent=''):
         """Return a string representation of this schema."""
-        pass
+        
+        # Use sorted list to enforce an order (useful for testing and readability)
+        variables = sorted(self.schema.keys())
+
+        # The plan here is to build up a list of lines in the string representation
+        # then join them all with newlines in the end
+        s = []
+        
+        # Add name of schema if it exists
+        if self.name:
+            s.append(str(self.name))
+        
+        # Add lines for each variable and its values
+        for variable in variables:            
+            # Add a line itemizing values without dependencies
+            values = [str(pair[0]) for pair in self.schema[variable] if not pair[1]]
+            if values:
+                line = "{}{} = {}".format(indent, variable, ','.join(values))
+                s.append(line)
+            
+            # Add values with dependencies
+            values_with_deps = [pair for pair in self.schema[variable] if pair[1]]
+            for value, dep in values_with_deps:
+                line = "{}{} = {}".format(indent, variable, value)
+                s.append(line)
+                s.append(dep.__str__(indent + TAB))
+            
+        return '\n'.join(s)
         
     def write_to_file(self, filename):
         """Create a new genfile from a GenSchema."""
         with open(filename, 'w') as f:
-            yaml.dump(self, f)
+            f.write(str(self))
     
     @classmethod
     def build_from_file(cls, filename):
