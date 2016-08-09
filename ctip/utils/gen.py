@@ -6,13 +6,13 @@ Created on Sun Jul 10 14:48:26 2016
 
 @author: Aaron Beckett
 """
-import yaml
 
 TAB = ' ' * 4
 
 
 class GenSchema(object):
-    """Object representation of a gen schema.
+    """
+    Object representation of a gen schema.
     
     The GenSchema class is used  for reading and writing genfiles as well as
     iterating over the configurations defined by a gen schema.
@@ -55,14 +55,25 @@ class GenSchema(object):
     """
     
     def __init__(self, name = None):
+        """
+        Initialize a GenSchema object.
+        
+        Args:
+            name: (str) Optional name for the schema.
+        """
         self.name = name
         self.schema = {}
     
     def add_values(self, variable, *values):
-        """Add values to a variable's list of valid values.
+        """
+        Add values to a variable's list of valid values.
 
         If the variable doesn't exist, it is created. Variables and values can
         be any immutable datatype besides a tuple.
+        
+        Args:
+            variable: Name of the variable to add values to.
+            *values: One or more values to add to the variable.
         """
         
         def valid_type(v):
@@ -81,10 +92,16 @@ class GenSchema(object):
             self.schema[variable].extend(values)
     
     def add_dependencies(self, variable, value, *dependencies):
-        """Bind dependent gen schemas to a particular value of a variable.
+        """
+        Bind dependent gen schemas to a particular value of a variable.
 
         The variable and value must already exist and dependencies must be
-        a GenSchema.        
+        a GenSchema.
+        
+        Args:
+            variable: Variable containing the value aquiring dependencies.
+            value: Value aquiring dependencies.
+            *dependencies: One or more GenSchema to add as dependent schemas.
         """
         
         if not dependencies:
@@ -109,7 +126,7 @@ class GenSchema(object):
                 args[i][1].schema.update(dep.schema)
     
     def configs(self):
-        """Generate configurations represented by the schema."""
+        """Generate all configurations represented by the schema."""
         
         # Make sure there's a schema with which to generate configs
         if not self.schema:
@@ -134,7 +151,7 @@ class GenSchema(object):
             
             Args:
                 variable: Name of the variable to increment.
-                idx: Index of the variable in the order.
+                idx: (int) Index of the variable in the order.
             """
             # Store whether or not the values for this variable rolled-over
             cycled = False
@@ -199,7 +216,12 @@ class GenSchema(object):
                     break
     
     def __str__(self, indent=''):
-        """Return a string representation of this schema."""
+        """
+        Return a string representation of this schema.
+
+        Args:
+            indent: Optional string appended before all lines added by this schema.
+        """
         
         # Use sorted list to enforce an order (useful for testing and readability)
         variables = sorted(self.schema.keys())
@@ -230,12 +252,22 @@ class GenSchema(object):
         return '\n'.join(s)
         
     def write_to_file(self, filename):
-        """Create a new genfile from a GenSchema."""
+        """
+        Create a new genfile from a GenSchema.
+
+        Args:
+            filename: (str) Filename of the new genfile.
+        """
         with open(filename, 'w') as f:
             f.write(str(self))
     
     @classmethod
     def build_from_file(cls, filename):
-        """Factory method for creating a GenSchema from the contents of a file."""
-        with open(filename, 'r') as f:
-            return yaml.load(f)
+        """
+        Factory method for creating a GenSchema from the contents of a file.
+        
+        Args:
+            cls: Python class this method was called on, should always be GenSchema.
+            filename: (str) Genfile to parse.
+        """
+        pass
