@@ -31,7 +31,6 @@ def frange(a, b = 0, inc = 1):
         StopIteration: There are no more values in the sequence.
         ValueError: The increment provided was 0.
     """
-    print(inc)
     
     if inc == 0:
         raise ValueError("Increment cannot be 0.")
