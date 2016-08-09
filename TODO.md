@@ -6,7 +6,7 @@
 - [x] write tests for gen schema api
 - [x] write tests for gen schema configuration generation
 - [x] implement gen schema api
-- [ ] implement configuration generation
+- [x] implement configuration generation
 - [ ] write tests for genfile parsing and writing
 - [ ] use yaml for genfile format/parsing
 - [ ] setup project to use configparser
