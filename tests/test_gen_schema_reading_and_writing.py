@@ -19,7 +19,7 @@ def gather_test_files():
 
 
 @pytest.mark.skip
-class TestGenSchemaParser(object):
+class TestGenSchemaReader(object):
     """Tests for Genfile parsing method."""
     pass
 
