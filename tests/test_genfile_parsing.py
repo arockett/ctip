@@ -47,7 +47,7 @@ def test_quoted_values():
     assert len(domain["values"]) == 3
     assert domain["values"].asList() == ["val1", "#alwaystraining", "comma,string"]
     
-    result = GenParser.parseString("var = '{}',\"{}\"".format("\'", '\"'))
+    result = GenParser.parseString("var = '{}',\"{}\"".format("\\'", '\\"'))
     assert result["schema"][0]["values"].asList() == ["'", '"']
 
 def test_multiple_vars():
@@ -87,7 +87,7 @@ def test_simple_nested_preconstructed_args():
     assert len(domain["deps"]) == 1
     dep = domain["deps"][0]
     assert dep["var"] == "length"
-    assert dep["values"].asList() == ['66', '72']
+    assert dep["values"].asList() == [66, 72]
     assert "deps" not in dep
     
     domain = result["schema"][2]
@@ -97,7 +97,7 @@ def test_simple_nested_preconstructed_args():
     assert len(domain["deps"]) == 1
     dep = domain["deps"][0]
     assert dep["var"] == "length"
-    assert dep["values"].asList() == ['42', '46']
+    assert dep["values"].asList() == [42, 46]
     assert "deps" not in dep
     
 def test_multiple_vars_in_nest():
@@ -112,7 +112,7 @@ def test_multiple_vars_in_nest():
     assert len(deps) == 2
     
     assert deps[0]["var"] == "length"
-    assert deps[0]["values"].asList() == ['42','46']
+    assert deps[0]["values"].asList() == [42, 46]
     assert "deps" not in deps[0]
     assert deps[1]["var"] == "wood"
     assert deps[1]["values"].asList() == ['osage orange','yew']
@@ -125,7 +125,7 @@ def test_multiple_vars_in_nest():
     assert len(deps) == 2
     
     assert deps[0]["var"] == "length"
-    assert deps[0]["values"].asList() == ['66','72']
+    assert deps[0]["values"].asList() == [66, 72]
     assert "deps" not in deps[0]
     assert deps[1]["var"] == "wood"
     assert deps[1]["values"].asList() == ['hickory']
@@ -143,49 +143,49 @@ def test_multi_nested():
     assert len(deps) == 2
     
     assert deps[0]["var"] == "gates"
-    assert deps[0]["values"].asList() == ['12']
+    assert deps[0]["values"].asList() == [12]
     deps2 = deps[0]["deps"]
     assert len(deps2) == 2
     
     assert deps2[0]["var"] == "complexity"
-    assert deps2[0]["values"].asList() == ['2']
+    assert deps2[0]["values"].asList() == [2]
     deps3 = deps2[0]["deps"]
     assert len(deps3) == 1
     
     assert deps3[0]["var"] == "length"
-    assert deps3[0]["values"].asList() == ['80']
+    assert deps3[0]["values"].asList() == [80]
     assert "deps" not in deps3[0]
     
     assert deps2[1]["var"] == "complexity"
-    assert deps2[1]["values"].asList() == ['3']
+    assert deps2[1]["values"].asList() == [3]
     deps3 = deps2[1]["deps"]
     assert len(deps3) == 1
     
     assert deps3[0]["var"] == "length"
-    assert deps3[0]["values"].asList() == ['110']
+    assert deps3[0]["values"].asList() == [110]
     assert "deps" not in deps3[0]
     
     assert deps[1]["var"] == "gates"
-    assert deps[1]["values"].asList() == ['15']
+    assert deps[1]["values"].asList() == [15]
     deps2 = deps[1]["deps"]
     assert len(deps2) == 2
     
     assert deps2[0]["var"] == "complexity"
-    assert deps2[0]["values"].asList() == ['2']
+    assert deps2[0]["values"].asList() == [2]
     deps3 = deps2[0]["deps"]
     assert len(deps3) == 1
     
     assert deps3[0]["var"] == "length"
-    assert deps3[0]["values"].asList() == ['116']
+    assert deps3[0]["values"].asList() == [116]
     assert "deps" not in deps3[0]
     
     assert deps2[1]["var"] == "complexity"
-    assert deps2[1]["values"].asList() == ['3']
+    assert deps2[1]["values"].asList() == [3]
     deps3 = deps2[1]["deps"]
     assert len(deps3) == 1
     
     assert deps3[0]["var"] == "length"
-    assert deps3[0]["values"].asList() == ['140', '158']
+    assert deps3[0]["values"].asList() == [140, 158]
     assert "deps" not in deps3[0]
     
 def test_multiple_vars_own_nest():
@@ -211,67 +211,92 @@ def test_multiple_vars_own_nest():
     
 def test_integer_range():
     result = GenParser.parseString("var = 0:4")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(0, 4)]
     
     result = GenParser.parseString("var = -2:3")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(-2, 3)]
     
     result = GenParser.parseString("var = 1:-1:1")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(1, -1, 1)]
     
     result = GenParser.parseString("var = 3:0:-2")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(3, 0, -2)]
 
 def test_floating_point_range():
     result = GenParser.parseString("var = 0.0:1.0")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(0.0, 1.0)]
     
     result = GenParser.parseString("var = .2:0.9:.05")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(0.2, 0.9, 0.05)]
     
     result = GenParser.parseString("var = -7.7:6.5")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(-7.7, 6.5)]
     
     result = GenParser.parseString("var = 2.3:-1.1:2")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(2.3, -1.1, 2)]
     
     result = GenParser.parseString("var = 23.2:17:-0.2")
+    assert len(result["schema"]) == 1
+    assert result["schema"][0]["var"] == "var"
+    assert result["schema"][0]["values"].asList() == [(23.2, 17, -0.2)]
     
-@pytest.mark.skip
 def test_commented():
-    pass
-#    result = GenParser.parseFile("tests/resources/genfile11_commented.gen")
-#    assert result["name"] == "p3"
-#    assert len(result["schema"]) == 3
-#    
-#    domain = result["schema"][0]
-#    assert domain["var"] == "decoder"
-#    assert domain["values"].asList() == ["Hypercube", "Unstructured", "FixedLogic", "FixedInputs"]
-#    assert "deps" not in domain
-#    
-#    domain = result["schema"][1]
-#    assert domain["var"] == "decoder"
-#    assert domain["values"].asList() == ["Hypercube"]
-#    deps = domain["deps"]
-#    assert len(deps) == 2
-#    
-#    assert deps[0]["var"] == "complexity"
-#    assert deps[0]["values"].asList() == ['2']
-#    deps2 = deps[0]["deps"]
-#    assert len(deps2) == 1
-#    
-#    assert deps2[0]["var"] == "gates"
-#    assert deps2[0]["values"].asList() == ['12', '15']
-#    assert "deps" not in deps2[0]
-#    
-#    assert deps[1]["var"] == "complexity"
-#    assert deps[1]["values"].asList() == ['3']
-#    deps2 = deps[1]["deps"]
-#    assert len(deps2) == 1
-#    
-#    assert deps2[0]["var"] == "gates"
-#    assert deps2[0]["values"].asList() == ['8', '11']
-#    assert "deps" not in deps2[0]
-#    
-#    domain = result["schema"][2]
-#    assert domain["var"] == "decoder"
-#    assert domain["values"].asList() == ["Unstructured"]
-#    deps = domain["deps"]
-#    assert len(deps) == 1
-#    
-#    assert deps[0]["var"] == "complexity"
-#    assert deps[0]["values"].asList() == ['2', '3']
-#    assert "deps" not in deps[0]
+    result = GenParser.parseFile("tests/resources/genfile11_commented.gen")
+    assert result["name"] == "p3"
+    assert len(result["schema"]) == 3
+    
+    domain = result["schema"][0]
+    assert domain["var"] == "decoder"
+    assert domain["values"].asList() == ["Hypercube", "Unstructured", "FixedLogic", "FixedInputs"]
+    assert "deps" not in domain
+    
+    domain = result["schema"][1]
+    assert domain["var"] == "decoder"
+    assert domain["values"].asList() == ["Hypercube"]
+    deps = domain["deps"]
+    assert len(deps) == 2
+    
+    assert deps[0]["var"] == "complexity"
+    assert deps[0]["values"].asList() == [2]
+    deps2 = deps[0]["deps"]
+    assert len(deps2) == 1
+    
+    assert deps2[0]["var"] == "gates"
+    assert deps2[0]["values"].asList() == [12, 15]
+    assert "deps" not in deps2[0]
+    
+    assert deps[1]["var"] == "complexity"
+    assert deps[1]["values"].asList() == [3]
+    deps2 = deps[1]["deps"]
+    assert len(deps2) == 1
+    
+    assert deps2[0]["var"] == "gates"
+    assert deps2[0]["values"].asList() == [8, 11]
+    assert "deps" not in deps2[0]
+    
+    domain = result["schema"][2]
+    assert domain["var"] == "decoder"
+    assert domain["values"].asList() == ["Unstructured"]
+    deps = domain["deps"]
+    assert len(deps) == 1
+    
+    assert deps[0]["var"] == "complexity"
+    assert deps[0]["values"].asList() == [2, 3]
+    assert "deps" not in deps[0]
     

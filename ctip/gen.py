@@ -326,31 +326,71 @@ class GenParser(object):
             Parser capable of turning a genfile into a consumable ParseResults object.
         """
         
-        def strip_quotes(s):
+        def strip_quotes(orig, loc, toks):
             """Strip quotation marks from the end of a string if present."""
-            if isinstance(s, str) and len(s) > 1:
+            s = toks[0]
+            if len(s) > 1:
                 if (s[0] == '"' and s[-1] == '"') or (s[0] == "'" and s[-1] == "'"):
                     s = s[1:-1]
             return s
             
-        def clean_csv(s, loc, toks):
-            """Parse action that strips quotation marks from any string tokens."""
-            return [strip_quotes(tok) for tok in toks]
+        ########## Define important literals ############
             
+        pound = p.Literal("#")
+        point = p.Literal(".")
+        comma = p.Literal(",")
+        e     = p.CaselessLiteral("E")
+        colon = p.Literal(":").suppress()
+        white = p.White(" \t\r")
+        endl  = p.LineEnd().suppress()
+        plus  = p.Literal("+")
+        minus = p.Literal("-")
+        nums  = p.Word(p.nums)
+            
+        ######### Define important constructs ###########
+        
+        # Define comment structure    
+        comment = pound + p.restOfLine
+            
+        # non-quoted string
+        non_quoted_token = p.Word(p.printables, excludeChars="#,")
+        non_quoted_token += p.Optional(~endl + white + ~p.FollowedBy(comma|pound|endl))
+        non_quoted = p.Combine(p.OneOrMore(non_quoted_token))
+        
+        # quoted string                        
+        quote = (p.QuotedString('"', escChar="\\") | p.QuotedString("'", escChar="\\"))
+        quote.addParseAction(strip_quotes)
+        
+        # integer
+        integer = p.Word("+-"+p.nums, p.nums)
+        integer.setParseAction( lambda s,l,t: int(t[0]) )
+        
+        # floating point number
+        fpoint = p.Combine( p.Optional(plus|minus) + p.Optional(nums) +
+                                point + nums + p.Optional( e + integer ) )
+        fpoint.setParseAction( lambda s,l,t: float(t[0]) )
+        
+        # Any number
+        number = (fpoint | integer)
+        
+        # range specification
+        range_spec = number + colon + number + p.Optional(colon + number)
+        range_spec.addParseAction( lambda s,l,t: [tuple(t)] )
+        
+        ######### Define grammar #########################
+         
         # Indent stack needed for the pyparsing indentBlock function
         indent_stack = [1]
         # Statement used for recursive definition of genfile grammar
         stmt = p.Forward()
-    
-        # Define comment structure    
-        comment = "#" + p.restOfLine
     
         # Variable names must start with a letter and can include
         # numbers, dashes, underscores, and periods.
         variable = p.Word(p.alphas, p.alphanums + "-_.")
         
         # Comma separated list of values
-        values = p.commaSeparatedList.addParseAction(clean_csv)
+        value = (range_spec | number | quote | non_quoted)
+        values = p.delimitedList(value)
     
         # Variable domain/scope:
         #       variable = val1, val2, val3 ...
