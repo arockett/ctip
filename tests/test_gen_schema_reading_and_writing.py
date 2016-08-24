@@ -10,7 +10,7 @@ Created on Sun Jul 10 19:54:47 2016
 
 import pytest
 
-from ctip.utils import GenSchema
+from ctip import GenSchema
 
 
 def gather_test_files():

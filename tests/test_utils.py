@@ -11,6 +11,10 @@ import pytest
 import sys
 import math
 
+
+from ctip.utils import frange
+
+
 def my_isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
     """
     Test if a and b are close enough to consider equal.
@@ -25,10 +29,7 @@ if sys.version_info < (3, 5):
     isclose = my_isclose
 else:
     isclose = math.isclose
-
-from ctip.utils import frange
-    
-    
+      
 def lists_fequal(A, B):
     """Compare two lists using floating point equality with a tolerance.
 

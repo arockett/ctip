@@ -10,7 +10,7 @@ Created on Sun Jul 10 14:32:01 2016
 
 import pytest
 
-from ctip.utils import GenSchema
+from ctip import GenSchema
 
 
 def test_construction():

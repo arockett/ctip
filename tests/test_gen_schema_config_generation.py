@@ -11,7 +11,7 @@ Created on Sun Jul 10 19:59:26 2016
 import pytest
 import json
 
-from ctip.utils import GenSchema
+from ctip import GenSchema
 
 
 def compare_configs(configs, schema):
