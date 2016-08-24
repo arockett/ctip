@@ -1,3 +1,5 @@
 #
 ####### Python package requirements for ctip #######
 #
+
+pyparsing
