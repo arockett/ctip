@@ -8,6 +8,6 @@ Created on Sat Jul  9 16:53:02 2016
 """
 
 import sys
-from .ctip import main
+from .entrypoint import main
 
 main(sys.argv)

@@ -9,7 +9,7 @@ Created on Sat Jul  9 16:42:47 2016
 """
 
 import sys
-from ctip.ctip import main
+from ctip.entrypoint import main
 
 if __name__ == '__main__':
     main(sys.argv)

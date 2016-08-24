@@ -33,7 +33,7 @@ setup(
     url = "https://github.com/becketta/ctip.git",
     packages = ["ctip"],
     entry_points = {
-        "console_scripts": ['ctip = ctip.ctip:main']
+        "console_scripts": ['ctip = ctip.entrypoint:main']
     },
     platforms = ["any"],
     classifiers = [

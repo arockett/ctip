@@ -8,20 +8,24 @@
 - [x] implement gen schema api
 - [x] implement configuration generation
 - [x] implement genfile writing from schema
-- [ ] implement parsing schema from genfile
-- [ ] write tests for genfile parsing and writing
-- [ ] setup project to use configparser
-- [ ] write tests for database management
-- [ ] port database code from ctip-old to the new package
+- [x] write tests for genfile parsing
+- [x] implement genfie parsing
+- [ ] implement read function by creating GenSchema from genfile parse results
+- [ ] write tests for genfile reading and writing
+- [ ] explore running experiments concurrently on local machine
+- [ ] explore submitting experiments externally
 - [ ] add Experiment and Environment objects
 - [ ] write test for example Experiment
 - [ ] write test for example Environment
 - [ ] create example Experiment
 - [ ] create example Environment
+- [ ] setup project to use configparser
+- [ ] write tests for database management
+- [ ] port database code from ctip-old to the new package
+- [ ] write tests for CLI?
+- [ ] port CLI from ctip-old to the new package
 - [ ] write test for automatic discovery
 - [ ] add automatic discovery of experiments and environments in configurable dirs
-- [ ] write tests for CLI
-- [ ] port CLI from ctip-old to the new package
 - [ ] write test for specifying Experiment and setting a default
 - [ ] write test for specifying Environment and setting a default
 - [ ] add ability to specify Experiment
