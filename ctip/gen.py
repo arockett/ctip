@@ -81,13 +81,34 @@ class GenSchema(object):
         def valid_type(v):
             return type(v) == str or type(v) == int or type(v) == float
             
+        unique = set()
+        current_domain = {v[0] for v in self.schema[variable]} if variable in self.schema else None
+        def check_uniqueness(v):
+            """
+            Check if v is already in the variable domain or duplicated in the values.
+
+            Args:
+                v: value to check
+                
+            Raises:
+                TypeError if v is a duplicate
+            """
+            # test v against set of already checked values and
+            # current domain of the variable
+            if v in unique or (current_domain and v in current_domain):
+                raise ValueError("Can't add duplicate value: {}".format(v))
+            # v is not duplicated, add it to the set of checked values
+            unique.add(v)
+            return True
+            
         if not values:
             raise TypeError("Must provide at least one value to add_values()")
             
         if not valid_type(variable) or not all([valid_type(v) for v in values]):
             raise TypeError("Gen schema variables and values must be strings, ints, or floats")
             
-        values = [(v,None) for v in values]
+        values = [(v,None) for v in values if check_uniqueness(v)]
+        
         if variable not in self.schema:
             self.schema[variable] = values
         else:
@@ -113,19 +134,17 @@ class GenSchema(object):
             raise TypeError("Dependencies must be of type GenSchema")
             
         try:
-            args = self.schema[variable]
+            values = self.schema[variable]
+            idx = [v[0] for v in values].index(value)
         except KeyError as e:
             raise KeyError("{} does not exist in the gen schema".format(variable)) from e
-        
-        indices = [i for i,arg in enumerate(args) if arg[0] == value]
-        if not indices:
-            raise ValueError("{} is not a valid argument for {}".format(value,variable))
+        except ValueError as e:
+            raise ValueError("{} is not a valid value for {}".format(value,variable)) from e
             
-        for i in indices:
-            if args[i][1] is None:
-                args[i] = (args[i][0], GenSchema())
-            for dep in dependencies:
-                args[i][1].schema.update(dep.schema)
+        if values[idx][1] is None:
+            values[idx] = (values[idx][0], GenSchema())
+        for dep in dependencies:
+            values[idx][1].schema.update(dep.schema)
     
     def configs(self):
         """Generate all configurations represented by the schema."""

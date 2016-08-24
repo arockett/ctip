@@ -57,14 +57,17 @@ def test_add_values():
     assert gen.schema["var1"] == [(1,None), (2,None), (3,None), (4,None), (5,None), (6,None)]
     
     # Add a duplicate value to an already created variable
-    gen.add_values("var1", 2)
-    assert gen.schema["var1"] == [(1,None), (2,None), (3,None), (4,None), (5,None), (6,None), (2,None)]
+    with pytest.raises(ValueError):
+        gen.add_values("var1", 2)
+    assert len(gen.schema["var1"]) == 6
     
     # Add a new variable
-    gen.add_values("var2", 2, 3, 1, 1)
+    with pytest.raises(ValueError):
+        gen.add_values("var2", 2, 3, 1, 1)
+    gen.add_values("var2", 2, 3, 1)
     assert len(gen.schema) == 2
-    assert len(gen.schema["var1"]) == 7
-    assert len(gen.schema["var2"]) == 4
+    assert len(gen.schema["var1"]) == 6
+    assert len(gen.schema["var2"]) == 3
     
 def test_add_dependency_to_non_existent_variable():
     """Ensure dependencies can't be added to variables that don't exist."""
