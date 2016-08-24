@@ -209,48 +209,69 @@ def test_multiple_vars_own_nest():
     assert deps[2]["values"].asList() == ["United States"]
     assert "deps" not in deps[2]
     
+def test_integer_range():
+    result = GenParser.parseString("var = 0:4")
+    
+    result = GenParser.parseString("var = -2:3")
+    
+    result = GenParser.parseString("var = 1:-1:1")
+    
+    result = GenParser.parseString("var = 3:0:-2")
+
+def test_floating_point_range():
+    result = GenParser.parseString("var = 0.0:1.0")
+    
+    result = GenParser.parseString("var = .2:0.9:.05")
+    
+    result = GenParser.parseString("var = -7.7:6.5")
+    
+    result = GenParser.parseString("var = 2.3:-1.1:2")
+    
+    result = GenParser.parseString("var = 23.2:17:-0.2")
+    
 @pytest.mark.skip
 def test_commented():
-    result = GenParser.parseFile("tests/resources/genfile11_commented.gen")
-    assert result["name"] == "p3"
-    assert len(result["schema"]) == 3
-    
-    domain = result["schema"][0]
-    assert domain["var"] == "decoder"
-    assert domain["values"].asList() == ["Hypercube", "Unstructured", "FixedLogic", "FixedInputs"]
-    assert "deps" not in domain
-    
-    domain = result["schema"][1]
-    assert domain["var"] == "decoder"
-    assert domain["values"].asList() == ["Hypercube"]
-    deps = domain["deps"]
-    assert len(deps) == 2
-    
-    assert deps[0]["var"] == "complexity"
-    assert deps[0]["values"].asList() == ['2']
-    deps2 = deps[0]["deps"]
-    assert len(deps2) == 1
-    
-    assert deps2[0]["var"] == "gates"
-    assert deps2[0]["values"].asList() == ['12', '15']
-    assert "deps" not in deps2[0]
-    
-    assert deps[1]["var"] == "complexity"
-    assert deps[1]["values"].asList() == ['3']
-    deps2 = deps[1]["deps"]
-    assert len(deps2) == 1
-    
-    assert deps2[0]["var"] == "gates"
-    assert deps2[0]["values"].asList() == ['8', '11']
-    assert "deps" not in deps2[0]
-    
-    domain = result["schema"][2]
-    assert domain["var"] == "decoder"
-    assert domain["values"].asList() == ["Unstructured"]
-    deps = domain["deps"]
-    assert len(deps) == 1
-    
-    assert deps[0]["var"] == "complexity"
-    assert deps[0]["values"].asList() == ['2', '3']
-    assert "deps" not in deps[0]
+    pass
+#    result = GenParser.parseFile("tests/resources/genfile11_commented.gen")
+#    assert result["name"] == "p3"
+#    assert len(result["schema"]) == 3
+#    
+#    domain = result["schema"][0]
+#    assert domain["var"] == "decoder"
+#    assert domain["values"].asList() == ["Hypercube", "Unstructured", "FixedLogic", "FixedInputs"]
+#    assert "deps" not in domain
+#    
+#    domain = result["schema"][1]
+#    assert domain["var"] == "decoder"
+#    assert domain["values"].asList() == ["Hypercube"]
+#    deps = domain["deps"]
+#    assert len(deps) == 2
+#    
+#    assert deps[0]["var"] == "complexity"
+#    assert deps[0]["values"].asList() == ['2']
+#    deps2 = deps[0]["deps"]
+#    assert len(deps2) == 1
+#    
+#    assert deps2[0]["var"] == "gates"
+#    assert deps2[0]["values"].asList() == ['12', '15']
+#    assert "deps" not in deps2[0]
+#    
+#    assert deps[1]["var"] == "complexity"
+#    assert deps[1]["values"].asList() == ['3']
+#    deps2 = deps[1]["deps"]
+#    assert len(deps2) == 1
+#    
+#    assert deps2[0]["var"] == "gates"
+#    assert deps2[0]["values"].asList() == ['8', '11']
+#    assert "deps" not in deps2[0]
+#    
+#    domain = result["schema"][2]
+#    assert domain["var"] == "decoder"
+#    assert domain["values"].asList() == ["Unstructured"]
+#    deps = domain["deps"]
+#    assert len(deps) == 1
+#    
+#    assert deps[0]["var"] == "complexity"
+#    assert deps[0]["values"].asList() == ['2', '3']
+#    assert "deps" not in deps[0]
     
