@@ -3,3 +3,4 @@ __pycache__
 ctip.egg-info
 dist
 *.pyc
+.idea
