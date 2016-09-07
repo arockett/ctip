@@ -70,12 +70,17 @@ class GenSchema(object):
         """
         Add values to a variable's list of valid values.
 
-        If the variable doesn't exist, it is created. Variables and values can
-        be any immutable datatype besides a tuple.
+        If the variable doesn't exist, it is created.
+        If the value already exists in the variable's domain it is not added again.
+        If a value is passed in twice it is only added to the variable's domain once (provided it does not aready
+        exist in the domain).
+        Variables and values can be any immutable datatype besides a tuple.
         
         Args:
             variable: Name of the variable to add values to.
             *values: One or more values to add to the variable.
+        Raises:
+            TypeError if no values are provided or the variable/values are not strings, ints, or floats
         """
         
         def valid_type(v):
@@ -89,14 +94,13 @@ class GenSchema(object):
 
             Args:
                 v: value to check
-                
-            Raises:
-                TypeError if v is a duplicate
+            Returns:
+                True if v is not already in the variable's domain AND has not already been flagged as unique.
             """
             # test v against set of already checked values and
             # current domain of the variable
             if v in unique or (current_domain and v in current_domain):
-                raise ValueError("Can't add duplicate value: {}".format(v))
+                return False
             # v is not duplicated, add it to the set of checked values
             unique.add(v)
             return True
@@ -125,6 +129,10 @@ class GenSchema(object):
             variable: Variable containing the value aquiring dependencies.
             value: Value aquiring dependencies.
             *dependencies: One or more GenSchema to add as dependent schemas.
+        Raises:
+            TypeError if no dependencies are provided or a dependency is not of type GenSchema
+            KeyError if the variable does not exist in the GenSchema
+            ValueError if the value is not in the variable's domain
         """
         
         if not dependencies:

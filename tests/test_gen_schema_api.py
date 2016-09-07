@@ -57,14 +57,11 @@ def test_add_values():
     assert gen.schema["var1"] == [(1,None), (2,None), (3,None), (4,None), (5,None), (6,None)]
     
     # Add a duplicate value to an already created variable
-    with pytest.raises(ValueError):
-        gen.add_values("var1", 2)
+    gen.add_values("var1", 2)
     assert len(gen.schema["var1"]) == 6
     
     # Add a new variable
-    with pytest.raises(ValueError):
-        gen.add_values("var2", 2, 3, 1, 1)
-    gen.add_values("var2", 2, 3, 1)
+    gen.add_values("var2", 2, 3, 1, 1)
     assert len(gen.schema) == 2
     assert len(gen.schema["var1"]) == 6
     assert len(gen.schema["var2"]) == 3
