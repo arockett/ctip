@@ -6,6 +6,6 @@ python:
   - "3.5"
 # command to install dependencies
 install:
-  - pip install -r requirements.txt
+  - pip install -r dev_env.txt
 # command to run tests
 script: py.test
