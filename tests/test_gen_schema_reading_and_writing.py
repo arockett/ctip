@@ -10,9 +10,9 @@ Created on Sun Jul 10 19:54:47 2016
 
 import pytest
 import json
+import os
 
 from ctip import GenSchema
-
 
 
 def gather_test_files():
@@ -28,7 +28,7 @@ def gather_test_files():
         ("tests/resources/genfile8_multiple_nests.gen", "tests/resources/configs8.json"),
         ("tests/resources/genfile9_multi_nested.gen", "tests/resources/configs9.json"),
         ("tests/resources/genfile10_multiple_vars_own_nest.gen", "tests/resources/configs10.json"),
-        ("tests/resources/genfile11_commented", "tests/resources/configs11.json")
+        ("tests/resources/genfile11_commented.gen", "tests/resources/configs11.json")
     ]
 
 
@@ -42,7 +42,15 @@ def test_gen_schema_read(genfile, config_file):
 
 
 @pytest.mark.parametrize("genfile,config_file", gather_test_files())
-def test_gen_schema_write(genfile, config_file):
+def test_gen_schema_write(genfile, config_file, tmpdir):
     """Test the Genfile write method with all examples in test/resources."""
-    pass
+    tmp_genfile = str(tmpdir.join(os.path.basename(genfile)))
+    configs = json.load(open(config_file))
+
+    schema = GenSchema.read(genfile)
+    schema.write(tmp_genfile)
+    schema = GenSchema.read(tmp_genfile)
+
+    pytest.helpers.compare_configs(configs, schema)
+
 
