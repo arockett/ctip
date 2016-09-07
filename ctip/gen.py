@@ -299,7 +299,39 @@ class GenSchema(object):
             cls: Python class this method was called on, should always be GenSchema.
             filename: (str) Genfile to parse.
         """
-        pass
+
+        def create_schema(domains):
+            """
+            Create GenSchema filled with the given domains.
+
+            See the GenParser for more specific information about what the domains parameter
+            looks like.
+
+            Args:
+                domains: ParseResult containing domain definitions.
+            Returns:
+                New GenSchema object whose schema is filled with the domains.
+            """
+            schema = GenSchema()
+            for domain in domains:
+                schema.add_values(domain['var'], *domain['values'])
+                if 'deps' in domain:
+                    deps = create_schema(domain['deps'])
+                    for val in domain['values']:
+                        schema.add_dependencies(domain['var'], val, deps)
+            return schema
+
+        # Parse the genfile using the GenParser
+        parsed_schema = GenParser.parseFile(filename)
+
+        # Create a GenSchema from the ParseResult object
+        schema = create_schema(parsed_schema['schema'])
+
+        # Set the name of the GenSchema if one is given
+        if 'name' in parsed_schema:
+            schema.name = parsed_schema['name']
+
+        return schema
     
     
 ###############################################################################    
@@ -307,7 +339,8 @@ class GenSchema(object):
     
 class GenParser(object):
     """Wrapper for a pyparsing parser object used to parse genfile syntax."""
-    
+
+    @staticmethod
     def parseString(s):
         """
         Parse a string describing a gen schema.
@@ -316,7 +349,8 @@ class GenParser(object):
             ParseResults object that can be consumed in the GenSchema read function.
         """
         return GenParser._get_parser().parseString(s)
-        
+
+    @staticmethod
     def parseFile(f):
         """
         Parse a genfile.
@@ -325,7 +359,8 @@ class GenParser(object):
             ParseResults object that can be consumed in the GenSchema read function.
         """
         return GenParser._get_parser().parseFile(f)
-        
+
+    @staticmethod
     def _get_parser():
         """
         Create parser for genfile using pyparsing library.
