@@ -1,0 +1,7 @@
+#
+####### Python package requirements for development of ctip #######
+#
+
+-r requirements.txt
+
+pytest-helpers-namespace
