@@ -13,7 +13,7 @@ from setuptools import setup
 
 version = re.search(
     '^__version__\s*=\s*"(.*)"',
-    open('ctip/ctip.py').read(),
+    open('ctip/entrypoint.py').read(),
     re.M
 ).group(1)
     
@@ -32,6 +32,9 @@ setup(
     license = "MIT",
     url = "https://github.com/becketta/ctip.git",
     packages = ["ctip"],
+    install_requires = [
+        'pyparsing'
+    ],
     entry_points = {
         "console_scripts": ['ctip = ctip.entrypoint:main']
     },

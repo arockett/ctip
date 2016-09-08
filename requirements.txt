@@ -2,4 +2,10 @@
 ####### Python package requirements for ctip #######
 #
 
+# Production dependencies
+#
+# These should be duplicated in the setup.py module
 pyparsing
+
+# Development/Testing dependencies
+pytest-helpers-namespace

@@ -10,8 +10,8 @@
 - [x] implement genfile writing from schema
 - [x] write tests for genfile parsing
 - [x] implement genfie parsing
-- [ ] implement read function by creating GenSchema from genfile parse results
-- [ ] write tests for genfile reading and writing
+- [x] implement read function by creating GenSchema from genfile parse results
+- [x] write tests for genfile reading and writing
 - [ ] explore running experiments concurrently on local machine
 - [ ] explore submitting experiments externally
 - [ ] add Experiment and Environment objects
