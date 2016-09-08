@@ -9,6 +9,8 @@ Created on Sun Jul 10 14:48:26 2016
 
 import pyparsing as p
 
+from .utils import frange
+
 TAB = ' ' * 4
 
 
@@ -314,7 +316,12 @@ class GenSchema(object):
             """
             schema = GenSchema()
             for domain in domains:
-                schema.add_values(domain['var'], *domain['values'])
+                ranges = []
+                values = [v for v in domain['values'] if not isinstance(v, tuple) or ranges.append(v)]
+                for range in ranges:
+                    range_vals = [round(v, 5) for v in frange(*range)]
+                    values.extend(range_vals)
+                schema.add_values(domain['var'], *values)
                 if 'deps' in domain:
                     deps = create_schema(domain['deps'])
                     for val in domain['values']:
