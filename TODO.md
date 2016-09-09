@@ -12,9 +12,14 @@
 - [x] implement genfie parsing
 - [x] implement read function by creating GenSchema from genfile parse results
 - [x] write tests for genfile reading and writing
-- [ ] explore running experiments concurrently on local machine
+- [ ] add size detection to GenSchema
+- [x] explore running experiments concurrently on local machine
 - [ ] explore submitting experiments externally
-- [ ] add Experiment and Environment objects
+- [ ] setup CLI
+- [ ] write tests for CLI routing
+- [ ] add Session object
+- [ ] add Experiment object model
+- [ ] add Environment object model
 - [ ] write test for example Experiment
 - [ ] write test for example Environment
 - [ ] create example Experiment
@@ -22,8 +27,6 @@
 - [ ] setup project to use configparser
 - [ ] write tests for database management
 - [ ] port database code from ctip-old to the new package
-- [ ] write tests for CLI?
-- [ ] port CLI from ctip-old to the new package
 - [ ] write test for automatic discovery
 - [ ] add automatic discovery of experiments and environments in configurable dirs
 - [ ] write test for specifying Experiment and setting a default
