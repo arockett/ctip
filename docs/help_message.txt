@@ -2,11 +2,11 @@ ctip <command> <args>
 
 COMMANDS:
 
-    run:    ctip run <experiment> <gen_file> [OPTIONS]
+    run:    ctip run <experiment> -f <gen_file> -n <name> [-e <env>]
 
     check:  ctip check [<session_id>]
 
-    stop:   ctip stop <session_id]
+    stop:   ctip stop [<session_id>]
 
     clean:  ctip clean [<session_id>]
 
@@ -31,6 +31,9 @@ OPTIONS:
 
     -e, --env:
         Specify the environment where jobs should be submitted.
+
+    -f, --genfile:
+        Path to a genfile defining the config values for this run.
 
     -n, --name:
         Provide a name for this test session. By default the session name
