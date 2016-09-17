@@ -9,3 +9,4 @@ pyparsing
 
 # Development/Testing dependencies
 pytest-helpers-namespace
+mock
