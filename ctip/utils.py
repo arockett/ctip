@@ -5,6 +5,18 @@ Created on Sun Jul 10 10:25:42 2016
 @author: Aaron Beckett
 """
 
+import sqlite3 as sql
+
+
+class DBConn(object):
+
+    def __init__(self, dbpath):
+        self.conn = sql.connect(dbpath)
+        self.conn.row_factory = sql.Row
+
+    def __del__(self):
+        self.conn.close()
+
 
 def frange(a, b = 0, inc = 1):
     """Generate sequence of values between a and b inclusive.

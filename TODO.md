@@ -15,8 +15,8 @@
 - [ ] add size detection to GenSchema
 - [x] explore running experiments concurrently on local machine
 - [ ] explore submitting experiments externally
-- [ ] setup CLI
-- [ ] write tests for CLI routing
+- [x] setup CLI
+- [x] write tests for CLI routing
 - [ ] add Session object
 - [ ] add Experiment object model
 - [ ] add Environment object model
